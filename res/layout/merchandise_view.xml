@@ -1,0 +1,77 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Index" >
+
+    <Button
+        android:id="@+id/merchandise_view_previous"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="&lt;" />
+
+    <ImageView
+        android:id="@+id/merchandise_view_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:gravity="center" />
+
+    <Button
+        android:id="@+id/merchandise_view_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:gravity="center"
+        android:text=">" />
+
+    <TextView
+        android:id="@+id/merchandise_view_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/merchandise_view_previous"
+        android:layout_marginLeft="14dp"
+        android:gravity="center" />
+
+    <TextView
+        android:id="@+id/merchandise_view_model"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/merchandise_view_name"
+        android:layout_marginLeft="14dp" />
+
+    <TextView
+        android:id="@+id/merchandise_view_division"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/merchandise_view_model"
+        android:layout_marginLeft="14dp" />
+
+    <TextView
+        android:id="@+id/merchandise_view_line"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/merchandise_view_division"
+        android:layout_marginLeft="14dp" />
+
+    <TextView
+        android:id="@+id/merchandise_view_subline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/merchandise_view_line"
+        android:layout_marginLeft="14dp" />
+
+    <TextView
+        android:id="@+id/merchandise_view_mark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/merchandise_view_subline"
+        android:layout_marginLeft="14dp" />
+
+</RelativeLayout>
