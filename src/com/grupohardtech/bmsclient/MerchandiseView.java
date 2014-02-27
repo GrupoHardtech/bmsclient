@@ -5,15 +5,18 @@ import java.util.ArrayList;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
 
-import classes.USImage;
 import classes.USPost;
 
 import com.grupohardtech.bmsclient.R;
+import com.grupohardtech.bmsclient.util.SystemUiHider;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.imageaware.ImageAware;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -22,6 +25,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MerchandiseView extends Activity {
+
+	private static final int HIDER_FLAGS = SystemUiHider.FLAG_HIDE_NAVIGATION;
+	private SystemUiHider mSystemUiHider;
 
 	String division_code = null;
 	String division_name = null;
@@ -37,6 +43,13 @@ public class MerchandiseView extends Activity {
 
 	@Override
 	public void onCreate(Bundle icicle) {
+
+		final View contentView = findViewById(R.id.list_fullscreen_content);
+
+		mSystemUiHider = SystemUiHider.getInstance(this, contentView,
+				HIDER_FLAGS);
+
+		mSystemUiHider.hide();
 
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
@@ -56,7 +69,7 @@ public class MerchandiseView extends Activity {
 			JSONObject object = USPost.connect(getString(R.string.domain)
 					+ "/merchandise/view.html", parameters);
 
-			String merchandise_image = object.getString("image");
+			String image_url = object.getString("image");
 			String merchandise_name = object.getString("name");
 			String merchandise_model = object.getString("model");
 			division_code = object.getString("division_code");
@@ -76,8 +89,10 @@ public class MerchandiseView extends Activity {
 			setTitle(merchandise_name);
 			setContentView(R.layout.merchandise_view);
 
-			ImageView img = (ImageView) findViewById(R.id.merchandise_view_image);
-			img.setImageBitmap(USImage.getBitmapFromURL(merchandise_image));
+			// ImageLoader imageLoader = ImageLoader.getInstance();
+			//
+			// imageLoader.displayImage(image_url,
+			// (ImageAware) findViewById(R.id.merchandise_view_image));
 
 			TextView merchandise_view_name = (TextView) findViewById(R.id.merchandise_view_name);
 			merchandise_view_name.setText(merchandise_name);
@@ -112,7 +127,6 @@ public class MerchandiseView extends Activity {
 			});
 
 			Button merchandise_view_next = (Button) findViewById(R.id.merchandise_view_next);
-
 			merchandise_view_next.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
@@ -120,6 +134,20 @@ public class MerchandiseView extends Activity {
 							MerchandiseView.class);
 					i.putExtra("rownumber", next);
 					i.putExtra("subline_code", subline_code);
+					startActivity(i);
+				}
+			});
+
+			Button merchandise_view_back = (Button) findViewById(R.id.merchandise_view_back);
+			merchandise_view_back.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					Intent i = new Intent(getApplicationContext(),
+							SublineList.class);
+					i.putExtra("division_code", division_code);
+					i.putExtra("division_name", division_code);
+					i.putExtra("line_code", line_code);
+					i.putExtra("line_name", line_name);
 					startActivity(i);
 				}
 			});
@@ -133,5 +161,10 @@ public class MerchandiseView extends Activity {
 					.show();
 		}
 
+	}
+
+	@Override
+	public void onBackPressed() {
+		return;
 	}
 }

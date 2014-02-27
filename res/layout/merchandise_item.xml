@@ -5,19 +5,19 @@
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/merchandise_rownumber"
+        android:id="@+id/merchandise_item_rownumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone" />
 
     <TextView
-        android:id="@+id/merchandise_code"
+        android:id="@+id/merchandise_item_code"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone" />
 
     <TextView
-        android:id="@+id/merchandise_name"
+        android:id="@+id/merchandise_item_name"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textColor="#000000"
@@ -25,21 +25,21 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/merchandise_mark_name"
+        android:id="@+id/merchandise_item_mark_name"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textColor="#BFFF00"
         android:textSize="12sp" />
 
     <TextView
-        android:id="@+id/merchandise_model"
+        android:id="@+id/merchandise_item_model"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textColor="#BFFF00"
         android:textSize="12sp" />
 
     <TextView
-        android:id="@+id/merchandise_price"
+        android:id="@+id/merchandise_item_price"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textColor="#BFFF00"

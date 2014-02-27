@@ -9,31 +9,35 @@ import org.json.JSONObject;
 import classes.USPost;
 
 import com.grupohardtech.bmsclient.R;
+import com.grupohardtech.bmsclient.util.SystemUiHider;
 
-import android.app.AlertDialog;
+import android.annotation.SuppressLint;
 import android.app.ListActivity;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class DivisionList extends ListActivity {
 
-	String appname;
+	private static final int HIDER_FLAGS = SystemUiHider.FLAG_HIDE_NAVIGATION;
+	private SystemUiHider mSystemUiHider;
 
-	@Override
+	@SuppressLint("CutPasteId")
 	public void onCreate(Bundle icicle) {
 
-		Bundle extras = getIntent().getExtras();
-		if (extras != null) {
-			appname = extras.getString("appname");
-		}
-
 		super.onCreate(icicle);
-		setTitle("Divisiones | " + appname);
+
+		View contentView = findViewById(R.id.list_fullscreen_content);
+
+		mSystemUiHider = SystemUiHider.getInstance(this, contentView,
+				HIDER_FLAGS);
+
+		mSystemUiHider.hide();
 
 		try {
 			JSONObject object = USPost.connect(getString(R.string.domain)
@@ -62,8 +66,9 @@ public class DivisionList extends ListActivity {
 			SimpleAdapter sa = new SimpleAdapter(this, arrayList,
 					R.layout.division_item, new String[] { "division_code",
 							"division_name", "division_line_count" },
-					new int[] { R.id.division_code, R.id.division_name,
-							R.id.division_line_count });
+					new int[] { R.id.division_item_code,
+							R.id.division_item_name,
+							R.id.division_item_line_count });
 
 			setListAdapter(sa);
 
@@ -74,6 +79,16 @@ public class DivisionList extends ListActivity {
 					.show();
 		}
 
+		TextView fullscreen_content = (TextView) findViewById(R.id.list_fullscreen_content);
+		fullscreen_content.setText(R.string.app_name);
+
+		findViewById(R.id.list_back).setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent i = new Intent(getApplicationContext(), Index.class);
+				startActivity(i);
+			}
+		});
 	}
 
 	@Override
@@ -89,8 +104,8 @@ public class DivisionList extends ListActivity {
 		startActivity(i);
 	}
 
-//	@Override
-//	public void onBackPressed() {
-//
-//	}
+	@Override
+	public void onBackPressed() {
+		return;
+	}
 }

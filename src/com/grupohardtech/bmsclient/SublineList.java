@@ -10,25 +10,44 @@ import org.json.JSONObject;
 import classes.USPost;
 
 import com.grupohardtech.bmsclient.R;
+import com.grupohardtech.bmsclient.util.SystemUiHider;
 
+import android.annotation.SuppressLint;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
+@SuppressLint("CutPasteId")
 public class SublineList extends ListActivity {
 
+	private static final int HIDER_FLAGS = SystemUiHider.FLAG_HIDE_NAVIGATION;
+	private SystemUiHider mSystemUiHider;
+
+	String division_code = null;
+	String division_name = null;
 	String line_code = null;
 	String line_name = null;
 
 	@Override
 	public void onCreate(Bundle icicle) {
 
+		final View contentView = findViewById(R.id.list_fullscreen_content);
+
+		mSystemUiHider = SystemUiHider.getInstance(this, contentView,
+				HIDER_FLAGS);
+
+		mSystemUiHider.hide();
+
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
+			division_code = extras.getString("division_code");
+			division_name = extras.getString("division_name");
 			line_code = extras.getString("line_code");
 			line_name = extras.getString("line_name");
 		}
@@ -71,8 +90,23 @@ public class SublineList extends ListActivity {
 							R.id.subline_merchandise_count });
 
 			setListAdapter(sa);
-			
+
 			setContentView(R.layout.list);
+
+			findViewById(R.id.list_back).setOnClickListener(
+					new OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							Intent i = new Intent(getApplicationContext(),
+									LineList.class);
+							i.putExtra("division_code", division_code);
+							i.putExtra("division_name", division_name);
+							startActivity(i);
+						}
+					});
+
+			TextView fullscreen_content = (TextView) findViewById(R.id.list_fullscreen_content);
+			fullscreen_content.setText("Sublíneas en " + line_name);
 
 		} catch (Exception e) {
 			Toast.makeText(getBaseContext(), e.getMessage(), Toast.LENGTH_LONG)
@@ -88,9 +122,18 @@ public class SublineList extends ListActivity {
 		HashMap<String, String> item = (HashMap<String, String>) parent
 				.getItemAtPosition(position);
 
-		Intent i = new Intent(this, MerchandiseList.class);
+		Intent i = new Intent(getApplicationContext(), MerchandiseList.class);
+		i.putExtra("division_code", division_code);
+		i.putExtra("division_name", division_name);
+		i.putExtra("line_code", line_code);
+		i.putExtra("line_name", line_name);
 		i.putExtra("subline_code", item.get("subline_code"));
 		i.putExtra("subline_name", item.get("subline_name"));
 		startActivity(i);
+	}
+
+	@Override
+	public void onBackPressed() {
+		return;
 	}
 }

@@ -5,13 +5,13 @@
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/division_code"
+        android:id="@+id/division_item_code"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone" />
 
     <TextView
-        android:id="@+id/division_name"
+        android:id="@+id/division_item_name"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textColor="#000000"
@@ -19,7 +19,7 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/division_line_count"
+        android:id="@+id/division_item_line_count"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textColor="#BFFF00"

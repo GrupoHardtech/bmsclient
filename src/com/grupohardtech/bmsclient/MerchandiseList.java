@@ -10,25 +10,48 @@ import org.json.JSONObject;
 import classes.USPost;
 
 import com.grupohardtech.bmsclient.R;
+import com.grupohardtech.bmsclient.util.SystemUiHider;
 
+import android.annotation.SuppressLint;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MerchandiseList extends ListActivity {
 
+	String division_code = null;
+	String division_name = null;
+	String line_code = null;
+	String line_name = null;
 	String subline_code = null;
 	String subline_name = null;
 
+	private static final int HIDER_FLAGS = SystemUiHider.FLAG_HIDE_NAVIGATION;
+	private SystemUiHider mSystemUiHider;
+
+	@SuppressLint("CutPasteId")
 	@Override
 	public void onCreate(Bundle icicle) {
 
+		final View contentView = findViewById(R.id.list_fullscreen_content);
+
+		mSystemUiHider = SystemUiHider.getInstance(this, contentView,
+				HIDER_FLAGS);
+
+		mSystemUiHider.hide();
+
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
+			division_code = extras.getString("division_code");
+			division_name = extras.getString("division_name");
+			line_code = extras.getString("line_code");
+			line_name = extras.getString("line_name");
 			subline_code = extras.getString("subline_code");
 			subline_name = extras.getString("subline_name");
 		}
@@ -75,18 +98,35 @@ public class MerchandiseList extends ListActivity {
 			}
 
 			SimpleAdapter sa = new SimpleAdapter(this, arrayList,
-					R.layout.merchandise_item, new String[] {
-							"rownumber", "merchandise_code",
-							"merchandise_name", "merchandise_model",
-							"merchandise_mark_name", "merchandise_price" },
-					new int[] { R.id.merchandise_rownumber,
-							R.id.merchandise_code, R.id.merchandise_name,
-							R.id.merchandise_model, R.id.merchandise_mark_name,
-							R.id.merchandise_price });
+					R.layout.merchandise_item, new String[] { "rownumber",
+							"merchandise_code", "merchandise_name",
+							"merchandise_model", "merchandise_mark_name",
+							"merchandise_price" },
+					new int[] { R.id.merchandise_item_rownumber,
+							R.id.merchandise_item_code, R.id.merchandise_item_name,
+							R.id.merchandise_item_model, R.id.merchandise_item_mark_name,
+							R.id.merchandise_item_price });
 
 			setListAdapter(sa);
-			
+
 			setContentView(R.layout.list);
+
+			findViewById(R.id.list_back).setOnClickListener(
+					new OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							Intent i = new Intent(getApplicationContext(),
+									SublineList.class);
+							i.putExtra("division_code", division_code);
+							i.putExtra("division_name", division_code);
+							i.putExtra("line_code", line_code);
+							i.putExtra("line_name", line_name);
+							startActivity(i);
+						}
+					});
+
+			TextView fullscreen_content = (TextView) findViewById(R.id.list_fullscreen_content);
+			fullscreen_content.setText("Productos en " + subline_name);
 
 		} catch (Exception e) {
 			Toast.makeText(getBaseContext(), e.getMessage(), Toast.LENGTH_LONG)
@@ -106,5 +146,10 @@ public class MerchandiseList extends ListActivity {
 		i.putExtra("rownumber", item.get("rownumber"));
 		i.putExtra("subline_code", subline_code);
 		startActivity(i);
+	}
+
+	@Override
+	public void onBackPressed() {
+		return;
 	}
 }
