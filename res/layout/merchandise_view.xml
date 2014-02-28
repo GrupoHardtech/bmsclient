@@ -6,14 +6,26 @@
     tools:context=".Index" >
 
     <TextView
-        android:id="@+id/list_fullscreen_content"
+        android:id="@+id/merchandise_view_fullscreen_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="fill_parent"
         android:gravity="center"
         android:keepScreenOn="true"
         android:textColor="#33b5e5"
-        android:textSize="50sp"
+        android:textSize="60sp"
         android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/touch_to_slide"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="50dp"
+        android:gravity="center_horizontal"
+        android:keepScreenOn="true"
+        android:text="@string/touch_to_slide"
+        android:textColor="#33b5e5"
+        android:textSize="16sp" />
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -25,81 +37,172 @@
             android:layout_height="match_parent"
             tools:context=".Index" >
 
-            <Button
+            <TextView
                 android:id="@+id/merchandise_view_previous"
-                android:layout_width="wrap_content"
+                android:layout_width="30dp"
                 android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
                 android:gravity="center"
-                android:text="&lt;" />
+                android:text="&lt;"
+                android:textColor="#33b5e5"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/merchandise_view_next"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:gravity="center"
+                android:text=">"
+                android:textColor="#33b5e5"
+                android:textSize="25sp" />
 
             <ImageView
                 android:id="@+id/merchandise_view_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:gravity="center" />
-
-            <Button
-                android:id="@+id/merchandise_view_next"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:gravity="center"
-                android:text=">" />
+                android:layout_toLeftOf="@+id/merchandise_view_next"
+                android:layout_toRightOf="@+id/merchandise_view_previous" />
 
             <TextView
                 android:id="@+id/merchandise_view_name"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/merchandise_view_previous"
-                android:layout_marginLeft="14dp"
-                android:gravity="center" />
+                android:layout_below="@+id/merchandise_view_image"
+                android:layout_toLeftOf="@+id/merchandise_view_next"
+                android:layout_toRightOf="@+id/merchandise_view_previous"
+                android:gravity="center"
+                android:paddingBottom="10dp"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/merchandise_view_model_label"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:layout_below="@+id/merchandise_view_name"
+                android:layout_toRightOf="@+id/merchandise_view_previous"
+                android:gravity="center_vertical"
+                android:text="Modelo: "
+                android:textColor="#000000"
+                android:textSize="10sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/merchandise_view_model"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
+                android:layout_width="fill_parent"
+                android:layout_height="30dp"
                 android:layout_below="@+id/merchandise_view_name"
-                android:layout_marginLeft="14dp" />
+                android:layout_toLeftOf="@+id/merchandise_view_next"
+                android:layout_toRightOf="@+id/merchandise_view_model_label"
+                android:gravity="center_vertical"
+                android:textColor="#000000"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/merchandise_view_division_label"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:layout_below="@+id/merchandise_view_model_label"
+                android:layout_toRightOf="@+id/merchandise_view_previous"
+                android:gravity="center_vertical"
+                android:text="División: "
+                android:textColor="#000000"
+                android:textSize="10sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/merchandise_view_division"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@+id/merchandise_view_model"
-                android:layout_marginLeft="14dp" />
+                android:layout_width="fill_parent"
+                android:layout_height="30dp"
+                android:layout_below="@+id/merchandise_view_model_label"
+                android:layout_toLeftOf="@+id/merchandise_view_next"
+                android:layout_toRightOf="@+id/merchandise_view_division_label"
+                android:gravity="center_vertical"
+                android:textColor="#000000"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/merchandise_view_line_label"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:layout_below="@+id/merchandise_view_division_label"
+                android:layout_toRightOf="@+id/merchandise_view_previous"
+                android:gravity="center_vertical"
+                android:text="Línea: "
+                android:textColor="#000000"
+                android:textSize="10sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/merchandise_view_line"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@+id/merchandise_view_division"
-                android:layout_marginLeft="14dp" />
+                android:layout_width="fill_parent"
+                android:layout_height="30dp"
+                android:layout_below="@+id/merchandise_view_division_label"
+                android:layout_toLeftOf="@+id/merchandise_view_next"
+                android:layout_toRightOf="@+id/merchandise_view_line_label"
+                android:gravity="center_vertical"
+                android:textColor="#000000"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/merchandise_view_subline_label"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:layout_below="@+id/merchandise_view_line_label"
+                android:layout_toRightOf="@+id/merchandise_view_previous"
+                android:gravity="center_vertical"
+                android:text="Sublínea: "
+                android:textColor="#000000"
+                android:textSize="10sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/merchandise_view_subline"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@+id/merchandise_view_line"
-                android:layout_marginLeft="14dp" />
+                android:layout_width="fill_parent"
+                android:layout_height="30dp"
+                android:layout_below="@+id/merchandise_view_line_label"
+                android:layout_toLeftOf="@+id/merchandise_view_next"
+                android:layout_toRightOf="@+id/merchandise_view_subline_label"
+                android:gravity="center_vertical"
+                android:textColor="#000000"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/merchandise_view_mark_label"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:layout_below="@+id/merchandise_view_subline_label"
+                android:layout_toRightOf="@+id/merchandise_view_previous"
+                android:gravity="center_vertical"
+                android:text="Marca: "
+                android:textColor="#000000"
+                android:textSize="10sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/merchandise_view_mark"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@+id/merchandise_view_subline"
-                android:layout_marginLeft="14dp" />
+                android:layout_width="fill_parent"
+                android:layout_height="30dp"
+                android:layout_below="@+id/merchandise_view_subline_label"
+                android:layout_toLeftOf="@+id/merchandise_view_next"
+                android:layout_toRightOf="@+id/merchandise_view_mark_label"
+                android:gravity="center_vertical"
+                android:textColor="#000000"
+                android:textSize="10sp" />
 
             <Button
                 android:id="@+id/merchandise_view_back"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/merchandise_view_mark"
+                android:layout_alignParentBottom="true"
                 android:gravity="center"
                 android:text="@string/back"
                 android:textStyle="bold" />

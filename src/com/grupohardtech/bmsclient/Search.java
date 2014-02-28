@@ -16,21 +16,24 @@ import android.annotation.SuppressLint;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnKeyListener;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
+import android.view.WindowManager;
+import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MerchandiseList extends ListActivity {
+public class Search extends ListActivity {
 
-	String division_code = null;
-	String division_name = null;
-	String line_code = null;
-	String line_name = null;
-	String subline_code = null;
-	String subline_name = null;
+	String term = null;
 
 	private static final int HIDER_FLAGS = SystemUiHider.FLAG_HIDE_NAVIGATION;
 	private SystemUiHider mSystemUiHider;
@@ -38,7 +41,6 @@ public class MerchandiseList extends ListActivity {
 	@SuppressLint("CutPasteId")
 	@Override
 	public void onCreate(Bundle icicle) {
-
 		final View contentView = findViewById(R.id.list_fullscreen_content);
 
 		mSystemUiHider = SystemUiHider.getInstance(this, contentView,
@@ -48,26 +50,82 @@ public class MerchandiseList extends ListActivity {
 
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
-			division_code = extras.getString("division_code");
-			division_name = extras.getString("division_name");
-			line_code = extras.getString("line_code");
-			line_name = extras.getString("line_name");
-			subline_code = extras.getString("subline_code");
-			subline_name = extras.getString("subline_name");
+			term = extras.getString("term");
 		}
 
 		super.onCreate(icicle);
 		overridePendingTransition(android.R.anim.slide_in_left,
 				android.R.anim.slide_out_right);
 
+		setContentView(R.layout.search);
+
+		final EditText search_term_field = (EditText) findViewById(R.id.search_term);
+		search_term_field.setText(term);
+		search_term_field.requestFocus();
+		search_term_field.setOnKeyListener(new OnKeyListener() {
+			public boolean onKey(View v, int keyCode, KeyEvent event) {
+				if ((event.getAction() == KeyEvent.ACTION_DOWN)
+						&& (keyCode == KeyEvent.KEYCODE_ENTER)) {
+					term = search_term_field.getText().toString();
+					search();
+					return true;
+				}
+				return false;
+			}
+		});
+
+		search();
+
+		findViewById(R.id.search_button).setOnClickListener(
+				new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						term = search_term_field.getText().toString();
+						search();
+					}
+				});
+
+		TextView fullscreen_content = (TextView) findViewById(R.id.list_fullscreen_content);
+		fullscreen_content.setText("Búsqueda de productos");
+
+		findViewById(R.id.list_back).setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent i = new Intent(getApplicationContext(), Index.class);
+				startActivity(i);
+			}
+		});
+
+	}
+
+	@Override
+	public void onListItemClick(ListView parent, View v, int position, long id) {
+
+		@SuppressWarnings("unchecked")
+		HashMap<String, String> item = (HashMap<String, String>) parent
+				.getItemAtPosition(position);
+
+		Intent i = new Intent(this, MerchandiseView.class);
+		i.putExtra("rownumber", item.get("rownumber"));
+		i.putExtra("term", term);
+		startActivity(i);
+	}
+
+	@Override
+	public void onBackPressed() {
+		return;
+	}
+
+	public void search() {
 		try {
 
 			ArrayList<BasicNameValuePair> parameters = new ArrayList<BasicNameValuePair>();
-			parameters
-					.add(new BasicNameValuePair("subline_code", subline_code));
+			parameters.add(new BasicNameValuePair("term", term));
 
 			JSONObject object = USPost.connect(getString(R.string.domain)
-					+ "/merchandise/index.html", parameters);
+					+ "/merchandise/search.html", parameters);
+
+			int search_count = object.getInt("search_count");
 
 			JSONArray merchandiseItems = object
 					.getJSONArray("merchandiseItems");
@@ -112,47 +170,17 @@ public class MerchandiseList extends ListActivity {
 
 			setListAdapter(sa);
 
-			setContentView(R.layout.list);
-
-			findViewById(R.id.list_back).setOnClickListener(
-					new OnClickListener() {
-						@Override
-						public void onClick(View v) {
-							Intent i = new Intent(getApplicationContext(),
-									SublineList.class);
-							i.putExtra("division_code", division_code);
-							i.putExtra("division_name", division_code);
-							i.putExtra("line_code", line_code);
-							i.putExtra("line_name", line_name);
-							startActivity(i);
-						}
-					});
-
-			TextView fullscreen_content = (TextView) findViewById(R.id.list_fullscreen_content);
-			fullscreen_content.setText("Productos en " + subline_name);
+			TextView fullscreen_content = (TextView) findViewById(R.id.search_counter);
+			fullscreen_content.setText(String.valueOf(search_count)
+					+ " resultados");
 
 		} catch (Exception e) {
 			Toast.makeText(getBaseContext(), e.getMessage(), Toast.LENGTH_LONG)
 					.show();
 		}
 
-	}
+		// getWindow().setSoftInputMode(
+		// WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
-	@Override
-	public void onListItemClick(ListView parent, View v, int position, long id) {
-
-		@SuppressWarnings("unchecked")
-		HashMap<String, String> item = (HashMap<String, String>) parent
-				.getItemAtPosition(position);
-
-		Intent i = new Intent(this, MerchandiseView.class);
-		i.putExtra("rownumber", item.get("rownumber"));
-		i.putExtra("subline_code", subline_code);
-		startActivity(i);
-	}
-
-	@Override
-	public void onBackPressed() {
-		return;
 	}
 }

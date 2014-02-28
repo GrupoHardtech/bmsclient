@@ -31,6 +31,8 @@ public class DivisionList extends ListActivity {
 	public void onCreate(Bundle icicle) {
 
 		super.onCreate(icicle);
+		overridePendingTransition(android.R.anim.slide_in_left,
+				android.R.anim.slide_out_right);
 
 		View contentView = findViewById(R.id.list_fullscreen_content);
 

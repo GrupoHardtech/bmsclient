@@ -3,45 +3,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#0099cc"
+    android:theme="@style/FullscreenTheme"
     tools:context=".Index" >
 
     <TextView
         android:id="@+id/index_fullscreen_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="top"
+        android:gravity="center_horizontal"
         android:keepScreenOn="true"
         android:text="@string/welcome"
         android:textColor="#33b5e5"
-        android:textSize="30sp"
+        android:textSize="40sp"
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/touch_to_continue"
+        android:id="@+id/touch_to_begin"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
         android:keepScreenOn="true"
-        android:text="@string/touch"
+        android:text="@string/touch_to_begin"
         android:textColor="#33b5e5"
-        android:textSize="12sp"
+        android:textSize="20sp"
         android:textStyle="bold" />
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="true" >
-
-        <LinearLayout
-            android:id="@+id/index_fullscreen_content_controls"
-            style="?buttonBarStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center_horizontal"
-            android:background="@color/black_overlay"
-            android:orientation="horizontal"
-            tools:ignore="UselessParent" >
-        </LinearLayout>
-    </FrameLayout>
 
 </FrameLayout>

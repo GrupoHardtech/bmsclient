@@ -36,13 +36,13 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textColor="#BFFF00"
-        android:textSize="12sp" />
+        android:textSize="10sp" />
 
     <TextView
         android:id="@+id/merchandise_item_price"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textColor="#BFFF00"
-        android:textSize="12sp" />
+        android:textSize="10sp" />
 
 </LinearLayout>

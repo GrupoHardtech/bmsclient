@@ -20,16 +20,43 @@
         android:layout_height="match_parent"
         android:fitsSystemWindows="true" >
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:orientation="vertical" >
 
+            <EditText
+                android:id="@+id/search_term"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:layout_toLeftOf="@+id/search_button"
+                android:drawableLeft="@drawable/magnifier"
+                android:hint="@string/search_hint"
+                android:inputType="textFilter" />
+
+            <Button
+                android:id="@+id/search_button"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="true"
+                android:text="@string/search_text" />
+
+            <TextView
+                android:id="@+id/search_counter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/search_term"
+                android:gravity="center_vertical"
+                android:paddingBottom="10dp"
+                android:textColor="#000000"
+                android:textStyle="italic" />
+
             <ListView
                 android:id="@android:id/list"
-                android:layout_width="fill_parent"
-                android:layout_height="0dip"
-                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/list_back"
+                android:layout_below="@+id/search_counter"
                 android:cacheColorHint="#0099cc"
                 android:divider="#FFFFFF"
                 android:dividerHeight="1dp"
@@ -40,10 +67,11 @@
                 android:id="@+id/list_back"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
                 android:gravity="center"
                 android:text="@string/back"
                 android:textStyle="bold" />
-        </LinearLayout>
+        </RelativeLayout>
     </FrameLayout>
 
 </FrameLayout>

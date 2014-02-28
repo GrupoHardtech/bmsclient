@@ -2,8 +2,12 @@
 <resources>
 
     <string name="app_name">Hardtech Solutions</string>
+    <string name="app_label">Hardtech Solutions</string>
+    <string name="search_text">Buscar</string>
+    <string name="search_hint">Buscar un producto</string>
     <string name="welcome">Bienvenido a Hardtech Solutions</string>
-    <string name="touch">Toque la pantalla para explorar nuestros productos</string>
+    <string name="touch_to_begin">Toque la pantalla para explorar nuestros productos</string>
+    <string name="touch_to_slide">Deslizece a la izquierda o derecha para moverse entre los productos</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="domain">http://192.168.1.4/BMS/mobile</string>

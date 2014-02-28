@@ -49,6 +49,8 @@ public class LineList extends ListActivity {
 		}
 
 		super.onCreate(icicle);
+		overridePendingTransition(android.R.anim.slide_in_left,
+				android.R.anim.slide_out_right);
 
 		try {
 

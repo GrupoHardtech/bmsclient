@@ -53,8 +53,8 @@ public class SublineList extends ListActivity {
 		}
 
 		super.onCreate(icicle);
-		setTitle("Sublíneas en " + line_name);
-
+		overridePendingTransition(android.R.anim.slide_in_left,
+				android.R.anim.slide_out_right);
 		try {
 
 			ArrayList<BasicNameValuePair> parameters = new ArrayList<BasicNameValuePair>();
